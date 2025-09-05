@@ -1,0 +1,57 @@
+# OS
+.DS_Store
+Thumbs.db
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# local and per-environment env vars
+.env
+.env.*
+*.local
+!.env.example
+
+# Node
+node_modules
+npm-debug.log*
+package-lock.json
+
+# TypeScript
+*.tsbuildinfo
+node_modules/.tmp/
+
+# Prettier
+.prettier-cache/
+
+# ESLint
+.eslintcache
+
+# Vitest
+.vitest/
+
+# Test coverage
+coverage/
+
+# Logs
+logs/
+logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Build output
+dist/
+
+# Local database
+data/*
+!data/.gitkeep
