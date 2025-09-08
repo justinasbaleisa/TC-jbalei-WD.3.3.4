@@ -1,7 +1,7 @@
 import supertest from 'supertest'
 // import createTestDatabase from '@tests/utils/createTestDatabase'
-import createDatabase from '@/database'
-import createApp from '@/app'
+import { createDatabase } from '@/database'
+import { createApp } from '@/app'
 
 // Testing with a real database, fine for read-only tests, as we would not
 // want to pollute the database with test data, as then we need to clean it up.

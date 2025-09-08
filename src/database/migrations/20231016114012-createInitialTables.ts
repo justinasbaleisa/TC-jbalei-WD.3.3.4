@@ -1,9 +1,17 @@
 import { Kysely, SqliteDatabase } from 'kysely'
 
+import {
+  MOVIES_TABLE,
+  PEOPLE_TABLE,
+  STARS_TABLE,
+  DIRECTORS_TABLE,
+  RATINGS_TABLE,
+} from '../types'
+
 /** Migration used to initialize empty database tables for the test database. */
 export async function up(db: Kysely<SqliteDatabase>) {
   await db.schema
-    .createTable('movies')
+    .createTable(MOVIES_TABLE)
     .ifNotExists()
     .addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement().notNull())
     .addColumn('title', 'text', (c) => c.notNull())
@@ -11,7 +19,7 @@ export async function up(db: Kysely<SqliteDatabase>) {
     .execute()
 
   await db.schema
-    .createTable('people')
+    .createTable(PEOPLE_TABLE)
     .ifNotExists()
     .addColumn('id', 'integer', (c) => c.primaryKey().autoIncrement().notNull())
     .addColumn('name', 'text', (c) => c.notNull())
@@ -19,7 +27,7 @@ export async function up(db: Kysely<SqliteDatabase>) {
     .execute()
 
   await db.schema
-    .createTable('stars')
+    .createTable(STARS_TABLE)
     .ifNotExists()
     .addColumn('movie_id', 'integer', (c) =>
       c.notNull().references('movies.id')
@@ -30,7 +38,7 @@ export async function up(db: Kysely<SqliteDatabase>) {
     .execute()
 
   await db.schema
-    .createTable('directors')
+    .createTable(DIRECTORS_TABLE)
     .ifNotExists()
     .addColumn('movie_id', 'integer', (c) =>
       c.notNull().references('movies.id')
@@ -41,7 +49,7 @@ export async function up(db: Kysely<SqliteDatabase>) {
     .execute()
 
   await db.schema
-    .createTable('ratings')
+    .createTable(RATINGS_TABLE)
     .ifNotExists()
     .addColumn('movie_id', 'integer', (c) =>
       c.notNull().references('movies.id')
