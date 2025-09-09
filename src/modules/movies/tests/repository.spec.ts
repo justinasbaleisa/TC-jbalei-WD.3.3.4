@@ -1,9 +1,9 @@
 import createTestDatabase from '@tests/utils/createTestDatabase'
 import { createFor } from '@tests/utils/records'
-import buildRepository from '../repository'
+import { createRepositories } from '@/repositories'
 
 const db = await createTestDatabase()
-const repository = buildRepository(db)
+const repository = createRepositories(db)
 const createMovies = createFor(db, 'movies')
 
 describe('findAll', () => {
@@ -17,7 +17,7 @@ describe('findAll', () => {
       },
     ])
 
-    const movies = await repository.findAll()
+    const movies = await repository.movies.getAll()
 
     expect(movies).toEqual([
       {
@@ -49,7 +49,7 @@ describe('findAll', () => {
     ])
 
     // select a few of them
-    const movies = await repository.findByIds([234, 4153])
+    const movies = await repository.movies.get([234, 4153])
 
     // expect to have only the selected movies
     expect(movies).toHaveLength(2)

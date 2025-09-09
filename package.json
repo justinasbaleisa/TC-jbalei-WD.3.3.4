@@ -9,6 +9,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "dev": "tsx watch src",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc --build --force",
     "migrate:latest": "tsx src/database/migrate/bin",
     "gen:types": "kysely-codegen --camel-case --dialect sqlite --out-file src/database/types.ts",
     "test": "vitest",
