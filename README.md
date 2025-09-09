@@ -80,7 +80,41 @@ Split `src/modules/movies/controller.ts` into `Controller` and `Services`.
 
 Refactor `src/modules/movies/repository.ts` to become factory.
 
-### Phase 2: Features TDD
+### Phase 3: Screenings TDD
+
+**issue 11: Implement ScreeningsTable**
+
+Create and export `SCREENINGS_TABLE`, `ScreeningsTable` and `ScreeningsSelect` at `@/database/types`. Also `migrations/{timestamp}-createScreeningsTable.ts`
+
+**issue 12: Implement Screenings Zod `schema.ts`**
+
+Create and export `Screening`, `ScreeningsInsert`, `ScreeningsUpdate` types, `parse*` functions and list of keys at `@/modules/screenings/schema.ts`.
+
+**issue 13: Implement Screenings `validation.ts`**
+
+Create Validation layer for Id param, and Insert, Update inputs to be parsed.
+
+**issue 14: Introduce Screenings `types.ts`**
+
+Create types for `ScreeningsController`, `ScreeningsService` & `ScreeningsRepository`.
+
+**issue 15: Refactor Screenings `repository.ts`**
+
+Create `src/modules/screenings/repository.ts`.
+
+**issue 16: Introduce Screenings `services.ts`**
+
+Create `src/modules/screenings/controller.ts`.
+
+**issue 17: Introduce Screenings `controller.ts`**
+
+Create `src/modules/screenings/controller.ts`.
+
+**issue 18: Introduce Screenings `router.ts`**
+
+Create `src/modules/screenings/router.ts` wiring Routes, Validation and Controller.
+
+### Phase 4: Tickets TDD
 
 ..to be continue
 
