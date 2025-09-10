@@ -63,8 +63,10 @@ const validatePagination = (
   const { limit, offset } = req.query
   const parsedLimit = Number(limit)
   const parsedOffset = Number(offset)
-  req.query.parsedLimit = Number.isNaN(parsedLimit) || parsedLimit < 0 ? 0 : parsedLimit
-  req.query.parsedOffset = Number.isNaN(parsedOffset) || parsedOffset < 0 ? 0 : parsedOffset
+  req.query.parsedLimit =
+    Number.isNaN(parsedLimit) || parsedLimit < 0 ? 0 : parsedLimit
+  req.query.parsedOffset =
+    Number.isNaN(parsedOffset) || parsedOffset < 0 ? 0 : parsedOffset
 
   next()
 }

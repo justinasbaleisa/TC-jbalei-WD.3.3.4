@@ -1,6 +1,6 @@
 import type { MoviesRepository, MoviesService } from '../types'
 import { createMoviesService } from '../service'
-import { Movie, MovieInsert, MovieUpdate } from '../schema';
+import { Movie, MovieInsert, MovieUpdate } from '../schema'
 
 describe('MoviesService', () => {
   let mockedRepository: MoviesRepository
@@ -18,29 +18,28 @@ describe('MoviesService', () => {
     mockedService = createMoviesService(mockedRepository)
 
     movies = [
-    {
-      id: 22,
-      title: 'The Dark Knight',
-      year: 2008,
-    },
-    {
-      id: 4153,
-      title: 'Inception',
-      year: 2010,
-    },
-    {
-      id: 234,
-      title: 'Sherlock Holmes',
-      year: 2009,
-    },
-  ]
-
+      {
+        id: 22,
+        title: 'The Dark Knight',
+        year: 2008,
+      },
+      {
+        id: 4153,
+        title: 'Inception',
+        year: 2010,
+      },
+      {
+        id: 234,
+        title: 'Sherlock Holmes',
+        year: 2009,
+      },
+    ]
   })
 
   const moviePatchTitle: MovieUpdate = { title: 'New Movie Title' }
   const moviePatchYear: MovieUpdate = { year: 2025 }
   const movieUpdate: MovieUpdate = { ...moviePatchTitle, ...moviePatchYear }
-  const movieInsert: MovieInsert = { ...movieUpdate as MovieInsert }
+  const movieInsert: MovieInsert = { ...(movieUpdate as MovieInsert) }
   const movieSelect: Movie = { id: 10, ...movieInsert }
 
   describe('create: serviceCreateMovie()', () => {
@@ -61,12 +60,9 @@ describe('MoviesService', () => {
       expect(mockedRepository.create).toHaveBeenCalledWith(movieInsert)
       expect(result).toEqual(undefined)
     })
-
-
-    })
+  })
 
   describe('getAll: serviceGetAllMovies()', () => {
-
     it('should return all by default', async () => {
       vi.mocked(mockedRepository.getAll).mockResolvedValue(movies)
 
@@ -123,7 +119,7 @@ describe('MoviesService', () => {
       )
 
       expect(result).not.toEqual(movies)
-      expect(result.map(m => m.id)).toEqual([22, 234, 4153])
+      expect(result.map((m) => m.id)).toEqual([22, 234, 4153])
     })
   })
 
@@ -164,7 +160,7 @@ describe('MoviesService', () => {
 
       expect(result).toEqual(movies)
     })
-})
+  })
 
   describe('update: serviceUpdateMovieById()', () => {
     it('should update and return result', async () => {
@@ -172,7 +168,10 @@ describe('MoviesService', () => {
 
       const result = await mockedService.update(movieSelect.id, movieUpdate)
 
-      expect(mockedRepository.update).toHaveBeenCalledWith(movieSelect.id, movieUpdate)
+      expect(mockedRepository.update).toHaveBeenCalledWith(
+        movieSelect.id,
+        movieUpdate
+      )
       expect(result).toEqual(movieSelect)
     })
 
@@ -181,7 +180,10 @@ describe('MoviesService', () => {
 
       const result = await mockedService.update(movieSelect.id, moviePatchTitle)
 
-      expect(mockedRepository.update).toHaveBeenCalledWith(movieSelect.id, moviePatchTitle)
+      expect(mockedRepository.update).toHaveBeenCalledWith(
+        movieSelect.id,
+        moviePatchTitle
+      )
       expect(result).toEqual(movieSelect)
     })
 
@@ -190,7 +192,10 @@ describe('MoviesService', () => {
 
       const result = await mockedService.update(movieSelect.id, moviePatchYear)
 
-      expect(mockedRepository.update).toHaveBeenCalledWith(movieSelect.id, moviePatchYear)
+      expect(mockedRepository.update).toHaveBeenCalledWith(
+        movieSelect.id,
+        moviePatchYear
+      )
       expect(result).toEqual(movieSelect)
     })
 
@@ -211,8 +216,6 @@ describe('MoviesService', () => {
       expect(mockedRepository.update).toHaveBeenCalledWith(movieSelect.id, {})
       expect(result).toEqual(undefined)
     })
-
-
   })
 
   describe('delete: serviceDeleteMovieById()', () => {
@@ -233,6 +236,5 @@ describe('MoviesService', () => {
       expect(mockedRepository.delete).toHaveBeenCalledWith(movieSelect.id)
       expect(result).toEqual(undefined)
     })
-
   })
 })

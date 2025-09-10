@@ -1,4 +1,4 @@
-import { Generated, Selectable } from 'kysely'
+import { ColumnType, Generated, Selectable } from 'kysely'
 
 export const DIRECTORS_TABLE = 'directors'
 export interface DirectorsTable {
@@ -38,12 +38,22 @@ export interface StarsTable {
 }
 export type StarsSelect = Selectable<StarsTable>
 
+export const SCREENINGS_TABLE = 'screenings'
+export interface ScreeningsTable {
+  id: Generated<number>
+  createdAt: ColumnType<Date, string | undefined, never>
+  allocatedTickets: number
+  movieId: number
+}
+export type ScreeningsSelect = Selectable<ScreeningsTable>
+
 export interface DB {
   directors: DirectorsTable
   movies: MoviesTable
   people: PeopleTable
   ratings: RatingsTable
   stars: StarsTable
+  screenings: ScreeningsTable
   kysely_migration: {
     name: string
     timestamp: string

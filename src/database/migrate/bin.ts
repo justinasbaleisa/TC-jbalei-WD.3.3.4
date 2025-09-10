@@ -5,11 +5,11 @@ import * as fs from 'node:fs/promises'
 import SQLite, { type Database } from 'better-sqlite3'
 import { FileMigrationProvider, Kysely, SqliteDialect } from 'kysely'
 import { fileURLToPath } from 'node:url'
-import { migrateToLatest } from '.'
+import { migrateToLatest, migrateDown } from '.'
 
 const MIGRATIONS_PATH = '../migrations'
 
-async function migrateDefault(url: string) {
+async function migrateDefault(url: string, direction: 'up' | 'down') {
   const db = new Kysely<Database>({
     dialect: new SqliteDialect({
       database: new SQLite(url),
@@ -24,10 +24,13 @@ async function migrateDefault(url: string) {
     migrationFolder: path.join(dirname, MIGRATIONS_PATH),
   })
 
-  const { results, error } = await migrateToLatest(nodeProvider, db)
+  const { results, error } =
+    direction === 'up'
+      ? await migrateToLatest(nodeProvider, db)
+      : await migrateDown(nodeProvider, db)
 
   if (!results?.length) {
-    console.log('No migrations to run.')
+    console.log(`No migrations to run in the '${direction}' direction.`)
   }
 
   results?.forEach((it) => {
@@ -58,5 +61,6 @@ if (isRunDirectly) {
     throw new Error('Provide DATABASE_URL in your environment variables.')
   }
 
-  migrateDefault(DATABASE_URL)
+  const direction = process.argv.includes('--down') ? 'down' : 'up'
+  migrateDefault(DATABASE_URL, direction)
 }
